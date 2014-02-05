@@ -1,19 +1,22 @@
-class Solution {
-    int binarySearch(int low, int high, int x) {
+int sqrt(int x) {
+    if (x == 0) return 0;
+    if (x == 1) return 1;
+
+    int low = 0;
+    int high = x / 2 + 1;
+
+    while (low < high) {
         int mid = (low + high) / 2;
-        if (mid == 0) return 1;
-        int s = x / mid;
-        if (s == mid || low == mid) {
-            return mid;
-        } else if (s < mid) {
-            return bisect(low, mid, x);
-        } else {
-            return bisect(mid, high, x);
+        int t = x / mid;
+        
+        // found solution
+        if (t == mid) return mid;
+
+        // adjust
+        if (t > mid) {
+            if (x / (mid + 1) < mid + 1) return mid;
+            low = mid;
         }
+        if (t < mid) high = mid;
     }
-public:
-    int sqrt(int x) {
-        if (x == 0) return 0;
-        return binarySearch(0, x, x);
-    }
-};
+}
